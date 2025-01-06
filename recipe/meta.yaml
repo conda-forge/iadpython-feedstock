@@ -6,24 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/iadpython-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/iadpython-{{ version }}.tar.gz
   sha256: 9efa69677a22450c140c4d13bd30b4f066a3158731c3a4497a7a989bac1dbc4a
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
     - setuptools >=44
   run:
     - matplotlib-base
     - numpy
     - scipy
-    - python >=3.7
+    - python >={{ python_min }}
     - pytest
     - pyyaml
 
@@ -33,6 +33,7 @@ test:
   requires:
     - pytest
     - pip
+    - python {{ python_min }}
   source_files:
     - tests/test_iad.py
   commands:
